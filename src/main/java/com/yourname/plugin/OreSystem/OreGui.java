@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 public class OreGui implements CommandExecutor{
 
     @Override
@@ -26,25 +29,40 @@ public class OreGui implements CommandExecutor{
        ItemStack iron = new ItemStack(Material.IRON_BLOCK);
        ItemStack coal = new ItemStack(Material.COAL_BLOCK);
 
-       gui.setItem(11, diamond);
-       gui.setItem(13, gold);
-       gui.setItem(15, iron);
-       gui.setItem(22, coal);
-
        ItemMeta dia = diamond.getItemMeta();
        ItemMeta gld = gold.getItemMeta();
        ItemMeta iro = iron.getItemMeta();
        ItemMeta cal = coal.getItemMeta();
 
-       dia.setDisplayName("§bDiamond Setting");
-       gld.setDisplayName("§eGold Setting");
-       iro.setDisplayName("§iIron Setting");
-       cal.setDisplayName("§8Coal Setting");
+       dia.displayName(
+            Component.text("Diamond Setting")
+            .color(NamedTextColor.AQUA)
+        );
+
+        gld.displayName(
+            Component.text("Gold Setting")
+            .color(NamedTextColor.YELLOW)
+        );
+
+        iro.displayName(
+             Component.text("Iron Setting")
+            .color(NamedTextColor.GRAY)
+        );
+
+        cal.displayName(
+            Component.text("Coal Setting")
+            .color(NamedTextColor.DARK_GRAY)
+        );
 
        diamond.setItemMeta(dia);
        gold.setItemMeta(gld);
        iron.setItemMeta(iro);
        coal.setItemMeta(cal);
+
+        gui.setItem(11, diamond);
+       gui.setItem(13, gold);
+       gui.setItem(15, iron);
+       gui.setItem(22, coal);
 
         p.openInventory(gui);
         return true;
