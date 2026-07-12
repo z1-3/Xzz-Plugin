@@ -17,21 +17,28 @@ public class Orechance implements Listener{
             public Orechance(OreListener listener){
                 this.listener = listener;
             }
-    @EventHandler
-    public void onBreak(BlockBreakEvent event){
-        Material type = event.getBlock().getType();
-        Location location = event.getBlock().getLocation();
-        if(type == Material.DIAMOND_ORE){
-            event.setDropItems(false);
-            if(Math.random() < listener.DiamondChance){
-                ItemStack dia = new ItemStack(Material.DIAMOND);
-                ItemMeta meta = dia.getItemMeta();
-                meta.lore(List.of(
-                    Component.text(listener.DiamondDescription)
-                ));
-                dia.setItemMeta(meta);
-                event.getBlock().getWorld().dropItemNaturally(location, dia);
-            }
+public void dropChance(BlockBreakEvent e, Material typeOre, double chance, String metaOre) {
+    Material type = e.getBlock().getType();
+    Location location = e.getBlock().getLocation();
+
+    if (type == typeOre) {
+        e.setDropItems(false);
+
+        if (Math.random() < chance) {
+            ItemStack item = new ItemStack(typeOre);
+
+            ItemMeta meta = item.getItemMeta();
+            meta.displayName(Component.text(metaOre));
+            item.setItemMeta(meta);
+
+            location.getWorld().dropItemNaturally(location, item);
         }
+    }
+}
+    @EventHandler
+    public void onBreak(BlockBreakEvent e){
+        dropChance(e,Material.DIAMOND_ORE,listener.DiamondChance,listener.DiamondDescription);
+
+       
     }
 }
