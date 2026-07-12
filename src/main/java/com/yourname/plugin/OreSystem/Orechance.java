@@ -37,7 +37,10 @@ public void dropChance(BlockBreakEvent e, Material typeOre, double chance, Strin
 }
     @EventHandler
     public void onBreak(BlockBreakEvent e){
-        dropChance(e,Material.DIAMOND_ORE,listener.DiamondChance,listener.DiamondDescription);
+        dropChance(e,Material.DIAMOND,listener.DiamondChance,listener.DiamondDescription);
+        dropChance(e,Material.RAW_IRON,listener.IronChance,listener.IronDescription);
+        dropChance(e,Material.RAW_GOLD,listener.GoldChance,listener.GoldDescription);
+        dropChance(e,Material.COAL,listener.CoalChance,listener.CoalDescription);
 
        
     }
